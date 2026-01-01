@@ -6,9 +6,8 @@ There is no need for user authentication or authorization in this assignment.
 
 ## Backend Requirements
 - Implement the backend using Python.
-- Use Flask, FastAPI, or any other Python web framework of your choice.
-- Use any database (e.g., SQLite, PostgreSQL, MongoDB).
-- Document the API using Swagger with OpenAPI Specs.
+- Use FastAPI
+- Use sqlite.
 - Design and implement the following core entities and API resources:
   - Movies
   - Actors
@@ -20,10 +19,12 @@ There is no need for user authentication or authorization in this assignment.
 - Enable filtering in APIs:
   - Movies by genre, director, release year, or actor.
   - Actors by movies or genres they acted in.
+- Document the API using Swagger with OpenAPI Specs.
 
 ## Frontend Requirements
-- Use ReactJS or VueJS only (TypeScript is recommended, but JavaScript is acceptable).
-- Use a CSS framework of your choice (e.g., Tailwind CSS, Bootstrap, Material UI).
+- Use Vite as the frontend bundler (recommended). Include linting as part of the build step.
+- VueJS only (TypeScript).
+- Use a CSS framework - Tailwind CSS
 - Implement a user interface that allows users to:
   - Browse a list of movies with key details (title, release year, genres, director).
   - Filter/search movies by genre, actor, or director.
@@ -33,7 +34,6 @@ There is no need for user authentication or authorization in this assignment.
 ## Expectations
 - A working full-stack application with a clear and concise `README.md` file.
 - The project should be Dockerized, with commands to build and run both frontend and backend.
-- Use Vite as the frontend bundler (recommended). Include linting as part of the build step.
 - Include unit tests for both frontend and backend, integrated into the build step.
 - API filtering should be handled on the backend — do not filter data in the frontend.
 - Provide inline code documentation where necessary.
