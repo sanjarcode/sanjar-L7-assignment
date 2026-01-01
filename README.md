@@ -7,7 +7,7 @@ There is no need for user authentication or authorization in this assignment.
 ## Backend Requirements
 - Implement the backend using Python.
 - Use FastAPI
-- Use sqlite.
+- Use postgres.
 - Design and implement the following core entities and API resources:
   - Movies
   - Actors
