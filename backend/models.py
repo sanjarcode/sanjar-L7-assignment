@@ -23,7 +23,7 @@ class Director(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True, unique=True)
 
-    movies = relationship("Movie", back_populates="director")
+    movies = relationship("Movie", back_populates="director", lazy="selectin")
 
 class Actor(Base):
     __tablename__ = "actors"
@@ -31,7 +31,7 @@ class Actor(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True, unique=True)
 
-    movies = relationship("Movie", secondary=movie_actors, back_populates="actors")
+    movies = relationship("Movie", secondary=movie_actors, back_populates="actors", lazy="selectin")
 
 class Genre(Base):
     __tablename__ = "genres"
@@ -39,7 +39,7 @@ class Genre(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True, unique=True)
 
-    movies = relationship("Movie", secondary=movie_genres, back_populates="genres")
+    movies = relationship("Movie", secondary=movie_genres, back_populates="genres", lazy="selectin")
 
 class Movie(Base):
     __tablename__ = "movies"
@@ -49,6 +49,6 @@ class Movie(Base):
     release_year = Column(Integer)
     director_id = Column(Integer, ForeignKey("directors.id"))
 
-    director = relationship("Director", back_populates="movies")
-    genres = relationship("Genre", secondary=movie_genres, back_populates="movies")
-    actors = relationship("Actor", secondary=movie_actors, back_populates="movies")
+    director = relationship("Director", back_populates="movies", lazy="selectin")
+    genres = relationship("Genre", secondary=movie_genres, back_populates="movies", lazy="selectin")
+    actors = relationship("Actor", secondary=movie_actors, back_populates="movies", lazy="selectin")
