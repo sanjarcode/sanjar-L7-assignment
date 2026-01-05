@@ -2,6 +2,7 @@
 
 ## Setup Instructions
 ```sh
+# after cloning and cding into the project directory
 source run.sh
 ```
 
