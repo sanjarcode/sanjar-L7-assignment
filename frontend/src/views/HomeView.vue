@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, computed } from 'vue';
 import api from '@/api';
 import type { Movie } from '@/types';
 import MovieCard from '@/components/MovieCard.vue';
@@ -38,6 +38,17 @@ const fetchMovies = async () => {
     loading.value = false;
   }
 };
+
+const clearFilters = () => {
+  search.value = '';
+  genreFilter.value = null;
+  directorFilter.value = null;
+  actorFilter.value = null;
+};
+
+const hasActiveFilters = computed(() => {
+  return !!(search.value || genreFilter.value || directorFilter.value || actorFilter.value);
+});
 
 // Debounce search could be added here, but for now direct watch
 let timeout: ReturnType<typeof setTimeout>;
@@ -91,16 +102,28 @@ onMounted(() => {
              </div>
 
              <!-- Advanced Filters -->
-             <div class="flex flex-col md:flex-row gap-4">
-                 <div class="flex-1">
-                     <Select v-model="genreFilter" :options="genresList" optionLabel="name" optionValue="name" placeholder="Filter by Genre..." filter showClear class="w-full !bg-white" :pt="{ label: { class: '!text-black' } }" />
+             <div class="flex flex-col md:flex-row gap-4 items-center">
+                 <div class="flex-1 w-full">
+                     <Select v-model="genreFilter" :options="genresList" optionLabel="name" optionValue="name" placeholder="Filter by Genre..." filter showClear class="w-full !bg-white custom-select" :pt="{ label: { class: '!text-black' } }" />
                  </div>
-                 <div class="flex-1">
-                     <Select v-model="directorFilter" :options="directorsList" optionLabel="name" optionValue="name" placeholder="Filter by Director..." filter showClear class="w-full !bg-white" :pt="{ label: { class: '!text-black' } }" />
+                 <div class="flex-1 w-full">
+                     <Select v-model="directorFilter" :options="directorsList" optionLabel="name" optionValue="name" placeholder="Filter by Director..." filter showClear class="w-full !bg-white custom-select" :pt="{ label: { class: '!text-black' } }" />
                  </div>
-                 <div class="flex-1">
-                     <Select v-model="actorFilter" :options="actorsList" optionLabel="name" optionValue="name" placeholder="Filter by Actor..." filter showClear class="w-full !bg-white" :pt="{ label: { class: '!text-black' } }" />
+                 <div class="flex-1 w-full">
+                     <Select v-model="actorFilter" :options="actorsList" optionLabel="name" optionValue="name" placeholder="Filter by Actor..." filter showClear class="w-full !bg-white custom-select" :pt="{ label: { class: '!text-black' } }" />
                  </div>
+                 <button
+                    @click="clearFilters"
+                    :disabled="!hasActiveFilters"
+                    class="px-4 py-2 text-sm font-medium transition-colors whitespace-nowrap border rounded"
+                    :class="[
+                        hasActiveFilters
+                        ? 'text-slate-500 hover:text-imdb-yellow border-slate-300 hover:border-imdb-yellow'
+                        : 'text-slate-700 border-slate-700 cursor-not-allowed opacity-50'
+                    ]"
+                 >
+                    Clear All
+                 </button>
              </div>
         </div>
     </div>
@@ -126,3 +149,14 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
+<style scoped>
+:deep(.custom-select .p-select-placeholder) {
+    color: #94a3b8 !important; /* text-slate-400 */
+    font-size: 0.875rem;
+}
+
+:deep(.p-inputtext::placeholder) {
+    color: #94a3b8 !important; /* text-slate-400 */
+}
+</style>
