@@ -1,5 +1,15 @@
 # frontend
 
+## Frontend Requirements
+- Use Vite as the frontend bundler (recommended). Include linting as part of the build step.
+- VueJS only (TypeScript).
+- Use a CSS framework - Tailwind CSS
+- Implement a user interface that allows users to:
+  - Browse a list of movies with key details (title, release year, genres, director).
+  - Filter/search movies by genre, actor, or director.
+  - View a detailed page for each movie with cast, director, and genre info.
+  - View a profile for each actor/director with movies they’ve worked on.
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup

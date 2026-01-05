@@ -1,14 +1,52 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import Button from 'primevue/button';
+import InputText from 'primevue/inputtext';
+import InputGroup from 'primevue/inputgroup';
+import InputGroupAddon from 'primevue/inputgroupaddon';
 </script>
 
 <template>
-  <nav class="bg-indigo-600 p-4 shadow-md">
-    <div class="container mx-auto flex justify-between items-center">
-      <RouterLink to="/" class="text-white text-2xl font-bold">MovieExplorer</RouterLink>
-      <div class="space-x-4">
-        <RouterLink to="/" class="text-white hover:text-indigo-200">Home</RouterLink>
-        <!-- Add more links if needed -->
+  <nav class="sticky top-0 z-50 bg-imdb-black border-none shadow-md">
+    <div class="container mx-auto px-4 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <RouterLink to="/" class="flex items-center gap-1 group">
+          <!-- IMDB Branding -->
+          <div class="bg-imdb-yellow rounded px-2 py-1 text-black font-extrabold text-lg leading-none tracking-tighter">
+            IMDb
+          </div>
+        </RouterLink>
+
+        <!-- Menu Button -->
+        <Button label="Menu" icon="pi pi-bars" variant="text" class="!text-white !font-semibold hover:!bg-white/10 !px-3" />
+      </div>
+
+      <!-- Search Bar -->
+      <div class="hidden md:flex flex-1 max-w-2xl mx-4">
+          <InputGroup class="h-8">
+            <InputGroupAddon class="!p-0 !min-w-0 bg-white">
+                 <button class="flex items-center px-3 bg-white text-black font-semibold text-sm border-r border-gray-300 hover:bg-gray-100 h-full transition-colors rounded-l">
+                    All <i class="pi pi-chevron-down ml-1 text-xs"></i>
+                </button>
+            </InputGroupAddon>
+
+            <InputText placeholder="Search IMDb" class="!border-none !shadow-none !rounded-none !text-black !bg-white" />
+
+            <InputGroupAddon class="!p-0 !min-w-0 bg-white rounded-r">
+                <Button icon="pi pi-search" variant="text" class="!text-gray-500 hover:!text-black !w-10 !h-full !rounded-none" />
+            </InputGroupAddon>
+          </InputGroup>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <Button class="hidden sm:flex items-center gap-1 !text-white !font-semibold hover:!bg-white/10 !px-3" variant="text">
+            <span class="bg-gray-500 text-white text-[10px] font-bold px-1 rounded">Pro</span>
+            <span>IMDbPro</span>
+        </Button>
+
+         <Button label="Watchlist" icon="pi pi-bookmark" variant="text" class="hidden sm:flex !text-white !font-semibold hover:!bg-white/10 !px-3" />
+
+         <Button label="Sign In" variant="text" class="!text-white !font-semibold hover:!bg-white/10 !px-3" />
       </div>
     </div>
   </nav>

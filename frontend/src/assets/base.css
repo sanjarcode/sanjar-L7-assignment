@@ -58,10 +58,16 @@
   font-weight: normal;
 }
 
+@layer base {
+  body {
+    @apply bg-imdb-black text-white;
+  }
+}
+
 body {
   min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
+  /* color: var(--color-text); */ /* Handled by Tailwind layer now */
+  /* background: var(--color-background); */ /* Handled by Tailwind layer now */
   transition:
     color 0.5s,
     background-color 0.5s;

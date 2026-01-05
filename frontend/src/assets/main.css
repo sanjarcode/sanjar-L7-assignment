@@ -1,7 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-imdb-black: #121212;
+  --color-imdb-dark: #1F1F1F;
+  --color-imdb-gray: #313131;
+  --color-imdb-light-gray: #575757;
+  --color-imdb-yellow: #F5C518;
+  --color-imdb-yellow-hover: #E2B616;
+}
 
 body {
-    @apply bg-gray-50 text-gray-900;
+    @apply bg-slate-900 text-slate-100 antialiased selection:bg-indigo-500 selection:text-white;
 }
