@@ -1,6 +1,9 @@
 # Movie Explorer Platform
 
 ## Setup Instructions
+```sh
+source run.sh
+```
 
 ### Prerequisites
 - Docker & Docker Compose
