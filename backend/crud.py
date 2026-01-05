@@ -116,5 +116,13 @@ async def get_director(db: AsyncSession, director_id: int):
     return result.scalars().first()
 
 async def get_genres(db: AsyncSession):
-    result = await db.execute(select(models.Genre))
+    result = await db.execute(select(models.Genre).order_by(models.Genre.name))
+    return result.scalars().all()
+
+async def get_actors(db: AsyncSession):
+    result = await db.execute(select(models.Actor).order_by(models.Actor.name))
+    return result.scalars().all()
+
+async def get_directors(db: AsyncSession):
+    result = await db.execute(select(models.Director).order_by(models.Director.name))
     return result.scalars().all()

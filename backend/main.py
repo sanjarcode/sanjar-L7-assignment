@@ -62,6 +62,14 @@ async def read_director(director_id: int, db: AsyncSession = Depends(get_db)):
 async def read_genres(db: AsyncSession = Depends(get_db)):
     return await crud.get_genres(db)
 
+@app.get("/actors/", response_model=List[schemas.ActorMinimal])
+async def read_actors(db: AsyncSession = Depends(get_db)):
+    return await crud.get_actors(db)
+
+@app.get("/directors/", response_model=List[schemas.DirectorMinimal])
+async def read_directors(db: AsyncSession = Depends(get_db)):
+    return await crud.get_directors(db)
+
 # Simple health check
 @app.get("/")
 def read_root():

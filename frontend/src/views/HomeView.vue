@@ -6,15 +6,20 @@ import MovieCard from '@/components/MovieCard.vue';
 import IconField from 'primevue/iconfield';
 import InputIcon from 'primevue/inputicon';
 import InputText from 'primevue/inputtext';
+import Select from 'primevue/select';
 import ProgressSpinner from 'primevue/progressspinner';
 
 // Search/Filter state
 const movies = ref<Movie[]>([]);
 const search = ref('');
-const genreFilter = ref('');
-const directorFilter = ref('');
-const actorFilter = ref('');
+const genreFilter = ref(null);
+const directorFilter = ref(null);
+const actorFilter = ref(null);
 const loading = ref(false);
+
+const genresList = ref<{id: number, name: string}[]>([]);
+const directorsList = ref<{id: number, name: string}[]>([]);
+const actorsList = ref<{id: number, name: string}[]>([]);
 
 const fetchMovies = async () => {
   loading.value = true;
@@ -43,7 +48,23 @@ watch([search, genreFilter, directorFilter, actorFilter], () => {
   }, 300);
 });
 
+const fetchMetadata = async () => {
+    try {
+        const [gRes, dRes, aRes] = await Promise.all([
+            api.get('/genres/'),
+            api.get('/directors/'),
+            api.get('/actors/')
+        ]);
+        genresList.value = gRes.data;
+        directorsList.value = dRes.data;
+        actorsList.value = aRes.data;
+    } catch (error) {
+        console.error("Failed to fetch metadata", error);
+    }
+}
+
 onMounted(() => {
+  fetchMetadata();
   fetchMovies();
 });
 </script>
@@ -72,13 +93,13 @@ onMounted(() => {
              <!-- Advanced Filters -->
              <div class="flex flex-col md:flex-row gap-4">
                  <div class="flex-1">
-                     <InputText v-model="genreFilter" placeholder="Filter by Genre..." class="w-full !text-black !bg-white" />
+                     <Select v-model="genreFilter" :options="genresList" optionLabel="name" optionValue="name" placeholder="Filter by Genre..." filter showClear class="w-full !bg-white" :pt="{ label: { class: '!text-black' } }" />
                  </div>
                  <div class="flex-1">
-                     <InputText v-model="directorFilter" placeholder="Filter by Director..." class="w-full !text-black !bg-white" />
+                     <Select v-model="directorFilter" :options="directorsList" optionLabel="name" optionValue="name" placeholder="Filter by Director..." filter showClear class="w-full !bg-white" :pt="{ label: { class: '!text-black' } }" />
                  </div>
                  <div class="flex-1">
-                     <InputText v-model="actorFilter" placeholder="Filter by Actor..." class="w-full !text-black !bg-white" />
+                     <Select v-model="actorFilter" :options="actorsList" optionLabel="name" optionValue="name" placeholder="Filter by Actor..." filter showClear class="w-full !bg-white" :pt="{ label: { class: '!text-black' } }" />
                  </div>
              </div>
         </div>

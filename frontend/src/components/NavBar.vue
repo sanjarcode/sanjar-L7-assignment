@@ -39,14 +39,7 @@ import InputGroupAddon from 'primevue/inputgroupaddon';
       </div>
 
       <div class="flex items-center gap-4">
-        <Button class="hidden sm:flex items-center gap-1 !text-white !font-semibold hover:!bg-white/10 !px-3" variant="text">
-            <span class="bg-gray-500 text-white text-[10px] font-bold px-1 rounded">Pro</span>
-            <span>IMDbPro</span>
-        </Button>
-
-         <Button label="Watchlist" icon="pi pi-bookmark" variant="text" class="hidden sm:flex !text-white !font-semibold hover:!bg-white/10 !px-3" />
-
-         <Button label="Sign In" variant="text" class="!text-white !font-semibold hover:!bg-white/10 !px-3" />
+        <!-- Removed IMDbPro, Watchlist, and Sign In as they are non-functional -->
       </div>
     </div>
   </nav>
