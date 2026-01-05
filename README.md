@@ -1,5 +1,8 @@
 # sanjar-L7-assignment (movie platform)
 
+## Demo
+https://youtu.be/qlxp-nltCIo
+
 ## Setup Instructions
 ```sh
 # after cloning and cding into the project directory
