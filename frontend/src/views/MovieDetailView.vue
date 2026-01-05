@@ -62,7 +62,8 @@ onMounted(async () => {
             <!-- Poster Side -->
              <div class="w-full md:w-1/3 lg:w-1/4">
                  <div class="aspect-[2/3] bg-imdb-gray rounded overflow-hidden flex items-center justify-center text-5xl font-bold text-imdb-light-gray select-none relative group">
-                      {{ movie.title[0] }}
+                      <img v-if="movie.poster_url" :src="movie.poster_url" :alt="movie.title" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity" />
+                      <span v-else>{{ movie.title[0] }}</span>
                       <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity">
                          <Button label="Watch Trailer" icon="pi pi-play" class="w-full !bg-imdb-yellow/90 hover:!bg-imdb-yellow !text-black !font-bold !border-none" />
                       </div>
@@ -88,8 +89,9 @@ onMounted(async () => {
                              :to="{name: 'profile', params: {type: 'actors', id: actor.id}}"
                              class="flex items-center gap-3 bg-imdb-gray p-2 rounded hover:bg-white/10 transition-colors group"
                          >
-                            <div class="w-12 h-12 rounded-full bg-imdb-black flex items-center justify-center text-slate-500 font-bold text-xs group-hover:text-white transition-colors">
-                                {{ actor.name[0] }}
+                             <div class="w-12 h-12 rounded-full overflow-hidden bg-imdb-black flex items-center justify-center text-slate-500 font-bold text-xs group-hover:text-white transition-colors">
+                                <img v-if="actor.profile_url" :src="actor.profile_url" :alt="actor.name" class="w-full h-full object-cover" />
+                                <span v-else>{{ actor.name[0] }}</span>
                             </div>
                             <span class="text-slate-200 text-sm font-semibold truncate group-hover:text-white transition-colors">{{ actor.name }}</span>
                          </RouterLink>

@@ -33,10 +33,10 @@ async def populate():
         actors_cache = {}
 
         # Helper to get/create in memory
-        def get_cached_or_new(model, cache, name):
+        def get_cached_or_new(model, cache, name, profile_url=None):
             if name in cache:
                 return cache[name]
-            instance = model(name=name)
+            instance = model(name=name, profile_url=profile_url)
             session.add(instance)
             cache[name] = instance
             return instance
@@ -44,7 +44,10 @@ async def populate():
         # Pre-create Genres
         genres_names = ["Action", "Adventure", "Sci-Fi", "Drama", "Crime", "Comedy", "Thriller", "Horror", "Romance", "Fantasy", "Animation", "Mystery"]
         for g_name in genres_names:
-            get_cached_or_new(models.Genre, genres_cache, g_name)
+            if g_name not in genres_cache:
+                genre = models.Genre(name=g_name)
+                session.add(genre)
+                genres_cache[g_name] = genre
 
         # Pre-create Directors (Random pool since JSON lacks them)
         directors_names = [
@@ -60,6 +63,7 @@ async def populate():
         for movie_data in movies_list:
             title = movie_data.get("original_title")
             release_date_str = movie_data.get("release_date")
+            poster_url = movie_data.get("poster_path")
 
             # Parse Year
             year = 2000 # Default
@@ -73,7 +77,7 @@ async def populate():
                     except:
                         pass
 
-            movie = models.Movie(title=title, release_year=year)
+            movie = models.Movie(title=title, release_year=year, poster_url=poster_url)
             session.add(movie)
 
             # Assign Random Director
@@ -90,8 +94,9 @@ async def populate():
             casts = movie_data.get("casts", [])
             for cast_member in casts[:8]:
                 actor_name = cast_member.get("name")
+                profile_url = cast_member.get("profile_path")
                 if actor_name:
-                    actor = get_cached_or_new(models.Actor, actors_cache, actor_name)
+                    actor = get_cached_or_new(models.Actor, actors_cache, actor_name, profile_url=profile_url)
                     # Since we are building graph in memory, simple append works
                     # Check list to avoid duplicate actor in same movie
                     if actor not in movie.actors:

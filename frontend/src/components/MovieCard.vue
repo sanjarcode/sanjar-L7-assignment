@@ -13,7 +13,8 @@ defineProps<{
   <div class="group bg-imdb-dark rounded-md overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 w-full flex flex-col h-full">
     <RouterLink :to="{ name: 'movie-detail', params: { id: movie.id } }" class="block relative aspect-[2/3] w-full overflow-hidden bg-imdb-gray">
        <!-- Poster -->
-      <div class="w-full h-full flex items-center justify-center text-imdb-light-gray font-bold text-4xl select-none group-hover:opacity-90 transition-opacity">
+       <img v-if="movie.poster_url" :src="movie.poster_url" :alt="movie.title" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity" />
+      <div v-else class="w-full h-full flex items-center justify-center text-imdb-light-gray font-bold text-4xl select-none group-hover:opacity-90 transition-opacity">
         {{ movie.title[0] }}
       </div>
       <div class="absolute top-0 left-0">

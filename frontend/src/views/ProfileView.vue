@@ -34,9 +34,14 @@ watch(() => route.params, fetchPerson);
       <ProgressSpinner style="width: 50px; height: 50px" strokeWidth="4" fill="transparent" animationDuration=".5s" />
   </div>
   <div v-else-if="person" class="space-y-6">
-    <div class="bg-imdb-dark p-8 rounded border border-white/5">
-      <h1 class="text-4xl font-bold text-white mb-2">{{ person.name }}</h1>
-      <p class="text-imdb-yellow font-semibold uppercase tracking-wider text-sm">{{ type.slice(0, -1) }}</p>
+    <div class="bg-imdb-dark p-8 rounded border border-white/5 flex items-center gap-6">
+      <div v-if="person.profile_url" class="w-32 h-32 rounded-full overflow-hidden border-2 border-imdb-yellow">
+          <img :src="person.profile_url" :alt="person.name" class="w-full h-full object-cover" />
+      </div>
+      <div>
+        <h1 class="text-4xl font-bold text-white mb-2">{{ person.name }}</h1>
+        <p class="text-imdb-yellow font-semibold uppercase tracking-wider text-sm">{{ type.slice(0, -1) }}</p>
+      </div>
     </div>
 
     <div>

@@ -22,6 +22,7 @@ class Director(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True, unique=True)
+    profile_url = Column(String, nullable=True)
 
     movies = relationship("Movie", back_populates="director", lazy="selectin")
 
@@ -30,6 +31,7 @@ class Actor(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True, unique=True)
+    profile_url = Column(String, nullable=True)
 
     movies = relationship("Movie", secondary=movie_actors, back_populates="actors", lazy="selectin")
 
@@ -47,6 +49,7 @@ class Movie(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, index=True)
     release_year = Column(Integer)
+    poster_url = Column(String, nullable=True)
     director_id = Column(Integer, ForeignKey("directors.id"))
 
     director = relationship("Director", back_populates="movies", lazy="selectin")

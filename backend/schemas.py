@@ -25,16 +25,19 @@ class Genre(GenreBase):
 
 class ActorMinimal(ActorBase):
     id: int
+    profile_url: Optional[str] = None
     class Config:
         from_attributes = True
 
 class DirectorMinimal(DirectorBase):
     id: int
+    profile_url: Optional[str] = None
     class Config:
         from_attributes = True
 
 class MovieMinimal(MovieBase):
     id: int
+    poster_url: Optional[str] = None
     class Config:
         from_attributes = True
 
