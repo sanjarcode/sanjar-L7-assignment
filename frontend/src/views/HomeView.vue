@@ -97,20 +97,20 @@ onMounted(() => {
              <div class="w-full">
                 <IconField>
                     <InputIcon class="pi pi-search" />
-                    <InputText v-model="search" placeholder="Search movies by title..." class="w-full !text-black !bg-white" />
+                    <InputText v-model="search" placeholder="Search movies by title..." class="w-full !text-slate-700 !bg-white placeholder:!text-slate-400" />
                 </IconField>
              </div>
 
              <!-- Advanced Filters -->
              <div class="flex flex-col md:flex-row gap-4 items-center">
                  <div class="flex-1 w-full">
-                     <Select v-model="genreFilter" :options="genresList" optionLabel="name" optionValue="name" placeholder="Filter by Genre..." filter showClear class="w-full !bg-white custom-select" :pt="{ label: { class: '!text-black' } }" />
+                      <Select v-model="genreFilter" :options="genresList" optionLabel="name" optionValue="name" placeholder="Filter by Genre..." filter showClear class="w-full !bg-white custom-select" :pt="{ label: { class: '!text-slate-700' } }" />
                  </div>
                  <div class="flex-1 w-full">
-                     <Select v-model="directorFilter" :options="directorsList" optionLabel="name" optionValue="name" placeholder="Filter by Director..." filter showClear class="w-full !bg-white custom-select" :pt="{ label: { class: '!text-black' } }" />
+                      <Select v-model="directorFilter" :options="directorsList" optionLabel="name" optionValue="name" placeholder="Filter by Director..." filter showClear class="w-full !bg-white custom-select" :pt="{ label: { class: '!text-slate-700' } }" />
                  </div>
                  <div class="flex-1 w-full">
-                     <Select v-model="actorFilter" :options="actorsList" optionLabel="name" optionValue="name" placeholder="Filter by Actor..." filter showClear class="w-full !bg-white custom-select" :pt="{ label: { class: '!text-black' } }" />
+                      <Select v-model="actorFilter" :options="actorsList" optionLabel="name" optionValue="name" placeholder="Filter by Actor..." filter showClear class="w-full !bg-white custom-select" :pt="{ label: { class: '!text-slate-700' } }" />
                  </div>
                  <button
                     @click="clearFilters"
@@ -118,8 +118,8 @@ onMounted(() => {
                     class="px-4 py-2 text-sm font-medium transition-colors whitespace-nowrap border rounded"
                     :class="[
                         hasActiveFilters
-                        ? 'text-slate-500 hover:text-imdb-yellow border-slate-300 hover:border-imdb-yellow'
-                        : 'text-slate-700 border-slate-700 cursor-not-allowed opacity-50'
+                        ? 'text-slate-300 hover:text-imdb-yellow border-slate-500 hover:border-imdb-yellow'
+                        : 'text-slate-600 border-slate-600 cursor-not-allowed opacity-50'
                     ]"
                  >
                     Clear All
@@ -152,11 +152,11 @@ onMounted(() => {
 
 <style scoped>
 :deep(.custom-select .p-select-placeholder) {
-    color: #94a3b8 !important; /* text-slate-400 */
+    color: #cbd5e1 !important; /* text-slate-300 */
     font-size: 0.875rem;
 }
 
 :deep(.p-inputtext::placeholder) {
-    color: #94a3b8 !important; /* text-slate-400 */
+    color: #cbd5e1 !important; /* text-slate-300 */
 }
 </style>

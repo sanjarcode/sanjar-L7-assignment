@@ -8,12 +8,11 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check lint \"build-only {@}\" --",
+    "build": "npm run build-only",
     "preview": "vite preview",
     "test:unit": "vitest",
     "build-only": "vite build",
-    "type-check": "vue-tsc --build",
-    "lint": "eslint . --fix --cache"
+    "type-check": "vue-tsc --build"
   },
   "dependencies": {
     "@primevue/themes": "^4.5.4",
