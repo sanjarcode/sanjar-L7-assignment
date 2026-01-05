@@ -1,9 +1,13 @@
-# Movie Explorer Platform
+# sanjar-L7-assignment (movie platform)
+LinkedIn: https://linkedin.com/in/sanjar-afaq/
+Resume: https://drive.google.com/file/d/10QMFc4Gqw_mhz1m2UodgtblJNDJ0bkcb/view?usp=drive_link
 
 ## Setup Instructions
 ```sh
 source run.sh
 ```
+
+This should be enough! For details, see below.
 
 ### Prerequisites
 - Docker & Docker Compose
@@ -36,8 +40,6 @@ cd frontend
 npm install
 npm run dev
 ```
-
-# sanjar-L7-assignment
 
 ## Objective
 Build a Movie Explorer Platform that allows film enthusiasts to explore movies, actors, directors, and genres.
