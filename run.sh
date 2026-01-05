@@ -1,6 +1,6 @@
 #!/bin/bash
 
-open "http://localhost:5173?msg=please_reload"
+open "http://localhost:5173?msg=please_reload_after_5s"
 echo "Starting Movie Explorer Platform..."
 
 # Ensure we are in the project root
