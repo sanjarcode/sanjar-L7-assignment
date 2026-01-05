@@ -66,7 +66,8 @@ async def get_movies(
     genre: Optional[str] = None,
     director: Optional[str] = None,
     actor: Optional[str] = None,
-    search: Optional[str] = None
+    search: Optional[str] = None,
+    release_year: Optional[int] = None
 ):
     query = select(models.Movie).options(
         selectinload(models.Movie.director),
@@ -82,6 +83,8 @@ async def get_movies(
         query = query.join(models.Movie.actors).where(models.Actor.name.ilike(f"%{actor}%"))
     if search:
         query = query.where(models.Movie.title.ilike(f"%{search}%"))
+    if release_year:
+        query = query.where(models.Movie.release_year == release_year)
 
     # Deduplicate if joins cause duplicates (though selectinload handles joins differently for loading, explicit joins for filtering might need distinct)
     # However, standard join on many-to-many might duplicate rows. distinct() helps.
@@ -119,8 +122,17 @@ async def get_genres(db: AsyncSession):
     result = await db.execute(select(models.Genre).order_by(models.Genre.name))
     return result.scalars().all()
 
-async def get_actors(db: AsyncSession):
-    result = await db.execute(select(models.Actor).order_by(models.Actor.name))
+async def get_actors(db: AsyncSession, movie: Optional[str] = None, genre: Optional[str] = None):
+    query = select(models.Actor).order_by(models.Actor.name)
+    if movie:
+        query = query.join(models.Actor.movies).where(models.Movie.title.ilike(f"%{movie}%"))
+    if genre:
+        query = query.join(models.Actor.movies).join(models.Movie.genres).where(models.Genre.name.ilike(f"%{genre}%"))
+
+    if movie or genre:
+        query = query.distinct()
+
+    result = await db.execute(query)
     return result.scalars().all()
 
 async def get_directors(db: AsyncSession):

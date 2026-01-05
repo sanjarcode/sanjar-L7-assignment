@@ -7,19 +7,7 @@ from database import engine, get_db, Base
 
 app = FastAPI(
     title="Movie Explorer API",
-    description="""
-    This API allows film enthusiasts to explore movies, actors, directors, and genres.
-
-    ## Features
-    * **Browse Movies**: Search and filter by genre, actor, or director.
-    * **Explore Talent**: Detailed profiles for actors and directors.
-    * **Categorization**: Navigate through various film genres.
-    """,
-    version="1.0.0",
-    contact={
-        "name": "Sanjar Afaq",
-        "url": "https://linkedin.com/in/sanjar-afaq/",
-    },
+    version="1.0.0"
 )
 
 
@@ -49,9 +37,10 @@ async def read_movies(
     director: Optional[str] = None,
     actor: Optional[str] = None,
     search: Optional[str] = None,
+    year: Optional[int] = None,
     db: AsyncSession = Depends(get_db)
 ):
-    return await crud.get_movies(db, skip=skip, limit=limit, genre=genre, director=director, actor=actor, search=search)
+    return await crud.get_movies(db, skip=skip, limit=limit, genre=genre, director=director, actor=actor, search=search, release_year=year)
 
 @app.get("/movies/{movie_id}", response_model=schemas.Movie, tags=["Movies"])
 async def read_movie(movie_id: int, db: AsyncSession = Depends(get_db)):
@@ -74,19 +63,23 @@ async def read_director(director_id: int, db: AsyncSession = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Director not found")
     return db_director
 
-@app.get("/genres/", response_model=List[schemas.Genre], tags=["Metadata"])
+@app.get("/genres/", response_model=List[schemas.Genre], include_in_schema=False)
 async def read_genres(db: AsyncSession = Depends(get_db)):
     return await crud.get_genres(db)
 
-@app.get("/actors/", response_model=List[schemas.ActorMinimal], tags=["Actors"])
-async def read_actors(db: AsyncSession = Depends(get_db)):
-    return await crud.get_actors(db)
+@app.get("/actors/", response_model=List[schemas.ActorMinimal], include_in_schema=False)
+async def read_actors(
+    movie: Optional[str] = None,
+    genre: Optional[str] = None,
+    db: AsyncSession = Depends(get_db)
+):
+    return await crud.get_actors(db, movie=movie, genre=genre)
 
-@app.get("/directors/", response_model=List[schemas.DirectorMinimal], tags=["Directors"])
+@app.get("/directors/", response_model=List[schemas.DirectorMinimal], include_in_schema=False)
 async def read_directors(db: AsyncSession = Depends(get_db)):
     return await crud.get_directors(db)
 
 # Simple health check
-@app.get("/", tags=["General"])
+@app.get("/", include_in_schema=False)
 def read_root():
     return {"message": "Welcome to Movie Explorer API"}
