@@ -13,7 +13,7 @@ import InputGroupAddon from 'primevue/inputgroupaddon';
         <RouterLink to="/" class="flex items-center gap-1 group">
           <!-- IMDB Branding -->
           <div class="bg-imdb-yellow rounded px-2 py-1 text-black font-extrabold text-lg leading-none tracking-tighter">
-            IMDb-L7
+            IMDb-Sanjar-Afaq-L7
           </div>
         </RouterLink>
       </div>
