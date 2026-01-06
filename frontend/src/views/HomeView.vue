@@ -8,6 +8,7 @@ import InputIcon from 'primevue/inputicon';
 import InputText from 'primevue/inputtext';
 import Select from 'primevue/select';
 import ProgressSpinner from 'primevue/progressspinner';
+import ScriptEditor from '@/components/ScriptEditor.vue';
 
 // Search/Filter state
 const movies = ref<Movie[]>([]);
@@ -126,6 +127,9 @@ onMounted(() => {
                  </button>
              </div>
         </div>
+
+        <!-- JS Script Editor -->
+        <ScriptEditor />
     </div>
 
     <!-- Loading -->
